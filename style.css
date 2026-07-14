@@ -1,0 +1,626 @@
+/* ==========================
+   Google Font
+========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    background:linear-gradient(135deg,#f9f4ff,#fefaf6);
+}
+
+/* ==========================
+Luxury Envelope
+========================== */
+
+#envelopeContainer{
+
+position:fixed;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:
+
+linear-gradient(135deg,#faf5ff,#fffef8);
+
+overflow:hidden;
+
+}
+
+#envelope{
+
+width:480px;
+
+height:320px;
+
+position:relative;
+
+perspective:1500px;
+
+}
+
+/* Letter */
+
+#letter{
+
+position:absolute;
+
+left:50%;
+
+top:15px;
+
+transform:translateX(-50%);
+
+width:88%;
+
+height:280px;
+
+overflow:hidden;
+
+border-radius:10px;
+
+z-index:1;
+
+transition:1.5s;
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+}
+
+#invitationPreview{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+/* Back */
+
+.back{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+background:#fff;
+
+border:2px solid #e6d5ff;
+
+border-radius:10px;
+
+}
+
+/* Bottom */
+
+.bottomFold{
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:55%;
+
+background:
+
+linear-gradient(180deg,#fefefe,#f6ebff);
+
+clip-path:
+
+polygon(0 100%,50% 0,100% 100%);
+
+z-index:5;
+
+}
+
+/* Left */
+
+.leftFold{
+
+position:absolute;
+
+left:0;
+
+width:50%;
+
+height:100%;
+
+background:#f3e6ff;
+
+clip-path:
+
+polygon(0 0,100% 50%,0 100%);
+
+z-index:6;
+
+}
+
+/* Right */
+
+.rightFold{
+
+position:absolute;
+
+right:0;
+
+width:50%;
+
+height:100%;
+
+background:#edd8ff;
+
+clip-path:
+
+polygon(100% 0,0 50%,100% 100%);
+
+z-index:6;
+
+}
+
+/* Top Flap */
+
+.topFold{
+
+position:absolute;
+
+top:0;
+
+width:100%;
+
+height:52%;
+
+background:
+
+linear-gradient(180deg,#efe1ff,#d8b5ff);
+
+clip-path:
+
+polygon(0 0,100% 0,50% 100%);
+
+transform-origin:top;
+
+transition:1.4s;
+
+z-index:9;
+
+}
+
+/* Wax Seal */
+
+#seal{
+
+position:absolute;
+
+left:50%;
+
+top:48%;
+
+transform:translate(-50%,-50%);
+
+z-index:15;
+
+text-align:center;
+
+cursor:pointer;
+
+}
+
+.sealCircle{
+
+width:95px;
+
+height:95px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(circle,#ffd700,#b8860b);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+font-weight:bold;
+
+color:white;
+
+box-shadow:
+
+0 0 25px gold;
+
+animation:pulse 2s infinite;
+
+}
+
+#seal small{
+
+display:block;
+
+margin-top:12px;
+
+font-size:15px;
+
+color:#7a3db4;
+
+font-weight:bold;
+
+}
+
+/* ==========================
+   Flap
+========================== */
+
+.flap{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background:linear-gradient(180deg,#efe3ff,#d8b6ff);
+
+clip-path:polygon(0 0,100% 0,50% 55%);
+
+transform-origin:top;
+
+transition:1.2s;
+
+z-index:5;
+
+border-top-left-radius:12px;
+border-top-right-radius:12px;
+
+}
+
+/* ==========================
+   Gold Seal
+========================== */
+
+.seal{
+
+width:90px;
+height:90px;
+
+border-radius:50%;
+
+background:radial-gradient(circle,#ffd700,#b8860b);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:34px;
+font-weight:bold;
+color:white;
+
+box-shadow:
+
+0 0 15px gold,
+0 0 40px rgba(255,215,0,.4);
+
+z-index:10;
+
+transition:.5s;
+
+animation:pulse 2s infinite;
+
+}
+
+.seal:hover{
+
+transform:scale(1.1);
+
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
+
+}
+
+h2{
+
+margin-top:20px;
+
+font-size:30px;
+
+color:#7d3cb5;
+
+}
+
+p{
+
+margin-top:10px;
+
+color:#555;
+
+}
+
+/* ==========================
+   Pages
+========================== */
+
+#pages{
+
+display:none;
+
+width:100vw;
+height:100vh;
+
+overflow-x:hidden;
+overflow-y:auto;
+
+scroll-behavior:smooth;
+
+background:#faf7ff;
+
+padding:40px;
+
+}
+
+.page{
+
+max-width:800px;
+
+margin:40px auto;
+
+background:white;
+
+border-radius:18px;
+
+overflow:hidden;
+
+box-shadow:0 10px 35px rgba(0,0,0,.18);
+
+transition:.5s;
+
+}
+
+.page:hover{
+
+transform:translateY(-8px);
+
+}
+
+.page img{
+
+width:100%;
+display:block;
+
+}
+
+/* ==========================
+Countdown
+========================== */
+
+.countdownPage{
+
+max-width:800px;
+
+margin:60px auto;
+
+padding:50px;
+
+border-radius:25px;
+
+background:white;
+
+box-shadow:0 15px 40px rgba(0,0,0,.2);
+
+text-align:center;
+
+}
+
+.countdownPage h1{
+
+font-size:42px;
+
+color:#7b2cbf;
+
+margin-bottom:40px;
+
+}
+
+.timer{
+
+display:flex;
+
+justify-content:center;
+
+gap:25px;
+
+flex-wrap:wrap;
+
+}
+
+.timer div{
+
+width:120px;
+
+height:120px;
+
+border-radius:18px;
+
+background:linear-gradient(180deg,#fff,#f4ebff);
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.timer span{
+
+font-size:40px;
+
+font-weight:bold;
+
+color:#b8860b;
+
+}
+
+.timer p{
+
+margin-top:8px;
+
+font-weight:600;
+
+}
+
+/* ==========================
+Controls
+========================== */
+
+.controls{
+
+position:fixed;
+
+bottom:25px;
+
+right:25px;
+
+display:none;
+
+gap:12px;
+
+z-index:100;
+
+}
+
+.controls button{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:50%;
+
+background:#7b2cbf;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+transition:.3s;
+
+}
+
+.controls button:hover{
+
+transform:scale(1.08);
+
+background:#5a189a;
+
+}
+
+/* ==========================
+Sparkles
+========================== */
+
+.sparkles{
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+background-image:
+
+radial-gradient(#ffd700 1px,transparent 1px);
+
+background-size:80px 80px;
+
+opacity:.25;
+
+animation:moveSparkle 18s linear infinite;
+
+}
+
+@keyframes moveSparkle{
+
+from{background-position:0 0;}
+
+to{background-position:300px 300px;}
+
+}
+
+/* ==========================
+Responsive
+========================== */
+
+@media(max-width:768px){
+
+#envelope{
+
+width:90%;
+height:230px;
+
+}
+
+.timer div{
+
+width:80px;
+height:80px;
+
+}
+
+.timer span{
+
+font-size:26px;
+
+}
+
+.countdownPage h1{
+
+font-size:30px;
+
+}
+
+.controls{
+
+right:10px;
+bottom:10px;
+
+}
+
+}
