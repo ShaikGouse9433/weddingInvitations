@@ -1,11 +1,6 @@
-// ==========================================
-// PREMIUM WEDDING INVITATION
-// Part 1
-// ==========================================
-
-// ------------------------------
+// ===========================================
 // ELEMENTS
-// ------------------------------
+// ===========================================
 
 const envelopeContainer = document.getElementById("envelopeContainer");
 const envelope = document.getElementById("envelope");
@@ -13,90 +8,221 @@ const topFold = document.querySelector(".topFold");
 const letter = document.getElementById("letter");
 const seal = document.getElementById("seal");
 const pages = document.getElementById("pages");
+const music = document.getElementById("bgMusic");
 const controls = document.querySelector(".controls");
 
-const music = document.getElementById("bgMusic");
-
-const musicBtn = document.getElementById("musicBtn");
-const nextBtn = document.getElementById("next");
-const prevBtn = document.getElementById("prev");
-
 let opened = false;
-let playing = false;
 
-// ------------------------------
-// PREMIUM ENVELOPE OPENING
-// ------------------------------
 
-seal.addEventListener("click", openInvitation);
+// ===========================================
+// ROSE PETALS
+// ===========================================
 
-function openInvitation(){
+const roseFlowers = [
+
+"🌹",
+"🌺",
+"🌸",
+"💮",
+"🌷"
+
+];
+
+function createRose(){
+
+    const rose=document.createElement("div");
+
+    rose.className="rose";
+
+    rose.innerHTML=
+
+    roseFlowers[Math.floor(Math.random()*roseFlowers.length)];
+
+    rose.style.left=Math.random()*100+"vw";
+
+    rose.style.fontSize=
+
+    (20+Math.random()*20)+"px";
+
+    rose.style.animationDuration=
+
+    (6+Math.random()*5)+"s";
+
+    rose.style.transform=
+
+    `rotate(${Math.random()*360}deg)`;
+
+    document.body.appendChild(rose);
+
+    setTimeout(()=>{
+
+        rose.remove();
+
+    },11000);
+
+}
+
+// Continuous premium rose animation
+
+setInterval(createRose,300);
+
+
+// ===========================================
+// GOLD SPARKLE
+// ===========================================
+
+function createSpark(x,y){
+
+    const spark=document.createElement("div");
+
+    spark.className="goldSpark";
+
+    spark.style.left=x+"px";
+
+    spark.style.top=y+"px";
+
+    document.body.appendChild(spark);
+
+    const angle=Math.random()*360;
+
+    const distance=80+Math.random()*120;
+
+    const dx=Math.cos(angle*Math.PI/180)*distance;
+
+    const dy=Math.sin(angle*Math.PI/180)*distance;
+
+    spark.animate([
+
+        {
+
+            transform:"translate(0,0) scale(1)",
+
+            opacity:1
+
+        },
+
+        {
+
+            transform:`translate(${dx}px,${dy}px) scale(0)`,
+
+            opacity:0
+
+        }
+
+    ],{
+
+        duration:1800,
+
+        easing:"ease-out"
+
+    });
+
+    setTimeout(()=>{
+
+        spark.remove();
+
+    },1800);
+
+}
+
+
+// ===========================================
+// PREMIUM ENVELOPE OPEN
+// ===========================================
+
+seal.addEventListener("click",()=>{
 
     if(opened) return;
 
-    opened = true;
+    opened=true;
 
-    // Play Music
+    // Music
 
-    music.volume = 0.4;
+    music.play().catch(()=>{});
 
-    music.play().then(()=>{
+    // Rose explosion
 
-        playing = true;
+    for(let i=0;i<70;i++){
 
-    }).catch(()=>{});
+        setTimeout(()=>{
 
-    // Seal disappears
+            createRose();
 
-    seal.style.transition =
-    "all .6s ease";
+        },i*25);
 
-    seal.style.transform =
-    "translate(-50%,-50%) scale(0) rotate(360deg)";
+    }
 
-    seal.style.opacity = "0";
+    // Gold sparkle explosion
+
+    const rect=seal.getBoundingClientRect();
+
+    const x=rect.left+rect.width/2;
+
+    const y=rect.top+rect.height/2;
+
+    for(let i=0;i<50;i++){
+
+        createSpark(x,y);
+
+    }
+
+    // Remove seal
+
+    seal.style.transition=".7s";
+
+    seal.style.transform=
+
+    "translate(-50%,-50%) scale(0) rotate(180deg)";
+
+    seal.style.opacity="0";
 
     // Open flap
 
     setTimeout(()=>{
 
-        topFold.style.transform =
+        topFold.style.transform=
+
         "rotateX(-180deg)";
 
     },500);
 
-    // Pull Letter
+    // Pull invitation paper
 
     setTimeout(()=>{
 
-        letter.style.transform =
-        "translate(-50%,-260px)";
+        letter.style.transform=
 
-        letter.style.boxShadow =
-        "0 30px 60px rgba(0,0,0,.30)";
+        "translate(-50%,-280px)";
 
-    },1200);
+    },1300);
 
-    // Fade Envelope
+    // Fade envelope
 
     setTimeout(()=>{
 
-        envelopeContainer.style.transition =
-        "opacity 1s";
+        envelope.style.transform=
 
-        envelopeContainer.style.opacity = "0";
+        "scale(.9)";
+
+        envelope.style.opacity="0";
 
     },2400);
 
-    // Show Pages
+    // Show pages
 
     setTimeout(()=>{
 
-        envelopeContainer.style.display = "none";
+        envelopeContainer.style.opacity="0";
 
-        pages.style.display = "block";
+    },2900);
 
-        controls.style.display = "flex";
+    setTimeout(()=>{
+
+        envelopeContainer.style.display="none";
+
+        pages.style.display="block";
+
+        controls.style.display="flex";
 
         window.scrollTo({
 
@@ -106,16 +232,14 @@ function openInvitation(){
 
         });
 
-    },3300);
+    },3600);
 
-}
+});
+// ===========================================
+// PREMIUM COUNTDOWN
+// ===========================================
 
-// ------------------------------
-// COUNTDOWN
-// ------------------------------
-
-const weddingDate =
-new Date("September 6, 2026 13:00:00").getTime();
+const weddingDate = new Date("September 6, 2026 13:00:00").getTime();
 
 function updateCountdown(){
 
@@ -125,38 +249,26 @@ function updateCountdown(){
 
     if(distance <= 0){
 
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
+        document.getElementById("days").innerHTML="00";
+        document.getElementById("hours").innerHTML="00";
+        document.getElementById("minutes").innerHTML="00";
+        document.getElementById("seconds").innerHTML="00";
 
         return;
-
     }
 
-    const days =
-    Math.floor(distance/(1000*60*60*24));
+    const days=Math.floor(distance/(1000*60*60*24));
 
-    const hours =
-    Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
 
-    const minutes =
-    Math.floor((distance%(1000*60*60))/(1000*60));
+    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
 
-    const seconds =
-    Math.floor((distance%(1000*60))/1000);
+    const seconds=Math.floor((distance%(1000*60))/1000);
 
-    document.getElementById("days").textContent =
-    String(days).padStart(2,"0");
-
-    document.getElementById("hours").textContent =
-    String(hours).padStart(2,"0");
-
-    document.getElementById("minutes").textContent =
-    String(minutes).padStart(2,"0");
-
-    document.getElementById("seconds").textContent =
-    String(seconds).padStart(2,"0");
+    document.getElementById("days").innerHTML=String(days).padStart(2,"0");
+    document.getElementById("hours").innerHTML=String(hours).padStart(2,"0");
+    document.getElementById("minutes").innerHTML=String(minutes).padStart(2,"0");
+    document.getElementById("seconds").innerHTML=String(seconds).padStart(2,"0");
 
 }
 
@@ -164,80 +276,86 @@ setInterval(updateCountdown,1000);
 
 updateCountdown();
 
-// ------------------------------
-// MUSIC BUTTON
-// ------------------------------
 
-musicBtn.addEventListener("click",()=>{
+// ===========================================
+// MUSIC BUTTON
+// ===========================================
+
+const musicBtn=document.getElementById("musicBtn");
+
+let playing=true;
+
+musicBtn.onclick=()=>{
 
     if(playing){
 
         music.pause();
 
-        playing = false;
+        musicBtn.innerHTML='<i class="fa-solid fa-volume-xmark"></i>';
 
-        musicBtn.innerHTML =
-        '<i class="fa-solid fa-volume-xmark"></i>';
-
-    }
-
-    else{
+    }else{
 
         music.play();
 
-        playing = true;
-
-        musicBtn.innerHTML =
-        '<i class="fa-solid fa-volume-high"></i>';
+        musicBtn.innerHTML='<i class="fa-solid fa-volume-high"></i>';
 
     }
 
-});
+    playing=!playing;
 
-// ------------------------------
+};
+
+
+// ===========================================
 // PAGE NAVIGATION
-// ------------------------------
+// ===========================================
 
-const pageList =
-document.querySelectorAll(".page,.countdownPage");
+const pageList=document.querySelectorAll(".page,.countdownPage");
 
-let current = 0;
+let current=0;
 
 function showPage(index){
 
-    if(index < 0)
-        index = 0;
+    if(index<0){
 
-    if(index >= pageList.length)
-        index = pageList.length - 1;
+        index=0;
 
-    current = index;
+    }
+
+    if(index>=pageList.length){
+
+        index=pageList.length-1;
+
+    }
+
+    current=index;
 
     pageList[current].scrollIntoView({
 
         behavior:"smooth",
 
-        block:"start"
+        block:"center"
 
     });
 
 }
 
-nextBtn.onclick = ()=>{
+document.getElementById("next").onclick=()=>{
 
-    showPage(current + 1);
-
-};
-
-prevBtn.onclick = ()=>{
-
-    showPage(current - 1);
+    showPage(current+1);
 
 };
 
-// ------------------------------
+document.getElementById("prev").onclick=()=>{
+
+    showPage(current-1);
+
+};
+
+
+// ===========================================
 // KEYBOARD SUPPORT
-// ------------------------------
+// ===========================================
 
 document.addEventListener("keydown",(e)=>{
 
@@ -254,315 +372,188 @@ document.addEventListener("keydown",(e)=>{
     }
 
 });
-// ==========================================
-// PREMIUM WEDDING INVITATION
-// Part 2
-// ==========================================
 
-// ------------------------------------------
-// UPDATE CURRENT PAGE WHILE SCROLLING
-// ------------------------------------------
 
-window.addEventListener("scroll", () => {
+// ===========================================
+// MOBILE SWIPE
+// ===========================================
 
-    pageList.forEach((page, index) => {
+let startX=0;
 
-        const rect = page.getBoundingClientRect();
+document.addEventListener("touchstart",(e)=>{
 
-        if (
-            rect.top <= window.innerHeight / 2 &&
-            rect.bottom >= window.innerHeight / 2
-        ) {
+    startX=e.touches[0].clientX;
 
-            current = index;
+});
+
+document.addEventListener("touchend",(e)=>{
+
+    const endX=e.changedTouches[0].clientX;
+
+    if(startX-endX>70){
+
+        showPage(current+1);
+
+    }
+
+    if(endX-startX>70){
+
+        showPage(current-1);
+
+    }
+
+});
+
+
+// ===========================================
+// PREMIUM ROSE SHOWER
+// ===========================================
+
+function roseShower(){
+
+    for(let i=0;i<15;i++){
+
+        setTimeout(()=>{
+
+            createRose();
+
+        },i*250);
+
+    }
+
+}
+
+setInterval(roseShower,7000);
+
+
+// ===========================================
+// GOLD SPARKLES IN BACKGROUND
+// ===========================================
+
+function randomSpark(){
+
+    const spark=document.createElement("div");
+
+    spark.className="goldSpark";
+
+    spark.style.left=Math.random()*window.innerWidth+"px";
+
+    spark.style.top=Math.random()*window.innerHeight+"px";
+
+    document.body.appendChild(spark);
+
+    spark.animate([
+
+        {
+
+            opacity:0,
+
+            transform:"scale(.2)"
+
+        },
+
+        {
+
+            opacity:1,
+
+            transform:"scale(1)"
+
+        },
+
+        {
+
+            opacity:0,
+
+            transform:"scale(.2)"
 
         }
+
+    ],{
+
+        duration:2200,
+
+        easing:"ease-in-out"
+
+    });
+
+    setTimeout(()=>{
+
+        spark.remove();
+
+    },2200);
+
+}
+
+setInterval(randomSpark,350);
+
+
+// ===========================================
+// FLOATING ENVELOPE BEFORE OPEN
+// ===========================================
+
+if(!opened){
+
+    let angle=0;
+
+    setInterval(()=>{
+
+        if(opened) return;
+
+        angle+=0.02;
+
+        envelope.style.transform=
+
+        `translateY(${Math.sin(angle)*8}px)`;
+
+    },20);
+
+}
+
+
+// ===========================================
+// WINDOW RESIZE
+// ===========================================
+
+window.addEventListener("resize",()=>{
+
+    pageList[current].scrollIntoView({
+
+        behavior:"instant",
+
+        block:"center"
 
     });
 
 });
 
-// ------------------------------------------
-// MOBILE SWIPE
-// ------------------------------------------
 
-let startX = 0;
-
-document.addEventListener("touchstart", (e) => {
-
-    startX = e.touches[0].clientX;
-
-});
-
-document.addEventListener("touchend", (e) => {
-
-    const endX = e.changedTouches[0].clientX;
-
-    if (startX - endX > 80) {
-
-        showPage(current + 1);
-
-    }
-
-    if (endX - startX > 80) {
-
-        showPage(current - 1);
-
-    }
-
-});
-
-// ------------------------------------------
-// PREMIUM FALLING ROSES
-// ------------------------------------------
-
-function createFlower() {
-
-    const flowers = ["🌹", "🌸", "🌺", "🌼"];
-
-    const flower = document.createElement("div");
-
-    flower.innerHTML =
-        flowers[Math.floor(Math.random() * flowers.length)];
-
-    flower.style.position = "fixed";
-
-    flower.style.left = Math.random() * 100 + "vw";
-
-    flower.style.top = "-60px";
-
-    flower.style.fontSize =
-        (20 + Math.random() * 18) + "px";
-
-    flower.style.pointerEvents = "none";
-
-    flower.style.zIndex = "9999";
-
-    flower.style.opacity = ".9";
-
-    document.body.appendChild(flower);
-
-    let x = parseFloat(flower.style.left);
-
-    let y = -60;
-
-    let rotate = 0;
-
-    const speed = 2 + Math.random() * 3;
-
-    const swing = 1 + Math.random() * 2;
-
-    function animate() {
-
-        y += speed;
-
-        rotate += 2;
-
-        x += Math.sin(y / 35) * swing;
-
-        flower.style.top = y + "px";
-
-        flower.style.left = x + "px";
-
-        flower.style.transform =
-            `rotate(${rotate}deg)`;
-
-        if (y < window.innerHeight + 80) {
-
-            requestAnimationFrame(animate);
-
-        } else {
-
-            flower.remove();
-
-        }
-
-    }
-
-    animate();
-
-}
-
-setInterval(createFlower, 600);
-
-// ------------------------------------------
-// ENVELOPE FLOAT EFFECT
-// ------------------------------------------
-
-setInterval(() => {
-
-    if (!opened) {
-
-        envelope.animate(
-
-            [
-
-                {
-                    transform: "translateY(0px)"
-                },
-
-                {
-                    transform: "translateY(-8px)"
-                },
-
-                {
-                    transform: "translateY(0px)"
-                }
-
-            ],
-
-            {
-
-                duration: 3000,
-
-                easing: "ease-in-out"
-
-            }
-
-        );
-
-    }
-
-}, 3200);
-
-// ------------------------------------------
-// MUSIC VOLUME FADE
-// ------------------------------------------
-
-function fadeMusic(target) {
-
-    const step = target > music.volume ? 0.02 : -0.02;
-
-    const fade = setInterval(() => {
-
-        music.volume += step;
-
-        if (
-
-            (step > 0 && music.volume >= target) ||
-
-            (step < 0 && music.volume <= target)
-
-        ) {
-
-            music.volume = target;
-
-            clearInterval(fade);
-
-        }
-
-    }, 40);
-
-}
-
-// ------------------------------------------
-// MUSIC BUTTON
-// ------------------------------------------
-
-musicBtn.addEventListener("click", () => {
-
-    if (playing) {
-
-        fadeMusic(0);
-
-        setTimeout(() => {
-
-            music.pause();
-
-        }, 900);
-
-    } else {
-
-        music.volume = 0;
-
-        music.play();
-
-        fadeMusic(0.4);
-
-    }
-
-});
-
-// ------------------------------------------
-// PAGE ANIMATION
-// ------------------------------------------
-
-const observer = new IntersectionObserver(
-
-(entries) => {
-
-entries.forEach(entry => {
-
-if(entry.isIntersecting){
-
-entry.target.animate(
-
-[
-
-{
-
-opacity:0,
-
-transform:"translateY(40px)"
-
-},
-
-{
-
-opacity:1,
-
-transform:"translateY(0)"
-
-}
-
-],
-
-{
-
-duration:700,
-
-fill:"forwards"
-
-}
-
-);
-
-}
-
-});
-
-},
-
-{
-
-threshold:0.25
-
-}
-
-);
-
-pageList.forEach(page=>{
-
-observer.observe(page);
-
-});
-
-// ------------------------------------------
+// ===========================================
 // PRELOAD IMAGES
-// ------------------------------------------
+// ===========================================
 
-window.addEventListener("load", () => {
+const images=[
 
-document.querySelectorAll("img").forEach(img => {
+"images/page00.jpeg",
+"images/page21.jpeg",
+"images/page22.jpeg",
+"images/page23.jpeg",
+"images/page24.jpeg",
+"images/page25.jpeg",
+"images/page26.jpeg",
+"images/page27.jpeg",
+"images/page28.jpeg"
 
-const image = new Image();
+];
 
-image.src = img.src;
+images.forEach(src=>{
+
+    const img=new Image();
+
+    img.src=src;
 
 });
 
-});
 
-// ------------------------------------------
-// END OF SCRIPT
-// ------------------------------------------
+// ===========================================
+// END
+// ===========================================

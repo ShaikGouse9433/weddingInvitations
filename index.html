@@ -3,63 +3,106 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Wedding Invitation</title>
+    <title>Wedding Invitation</title>
 
-<link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cinzel:wght@500;700&family=Great+Vibes&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-<!-- Background Music -->
+<!-- ==========================================
+            BACKGROUND MUSIC
+=========================================== -->
+
 <audio id="bgMusic" loop>
-    <source src="music/Wsong.mpeg" type="audio/mp3">
+
+    <source src="music/Wsong.mpeg"
+            type="audio/mpeg">
+
 </audio>
 
-<!-- Premium Sparkles -->
+
+<!-- ==========================================
+            PREMIUM PARTICLES
+=========================================== -->
+
 <div class="sparkles"></div>
 
-<!-- Premium Flowers -->
+<div class="goldParticles"></div>
+
 <div class="flowers"></div>
 
-<!-- ======================================
-        PREMIUM LUXURY ENVELOPE
-======================================= -->
+<div class="roseLayer"></div>
+
+
+<!-- ==========================================
+            PREMIUM ENVELOPE
+=========================================== -->
 
 <div id="envelopeContainer">
 
     <div id="envelope">
 
-        <!-- Back -->
+        <!-- Envelope Back -->
+
         <div class="back"></div>
 
-        <!-- Letter -->
+
+        <!-- Invitation Paper -->
 
         <div id="letter">
 
-            <img src="images/page01.jpeg"
-                 id="invitationPreview"
-                 alt="Wedding Invitation">
+            <img
+                src="images/page00.jpeg"
+                id="invitationPreview"
+                alt="Wedding Invitation">
 
         </div>
 
+
         <!-- Left Fold -->
+
         <div class="leftFold"></div>
 
+
         <!-- Right Fold -->
+
         <div class="rightFold"></div>
 
+
         <!-- Bottom Fold -->
+
         <div class="bottomFold"></div>
 
+
         <!-- Top Fold -->
-        <div class="topFold"></div>
+
+        <div class="topFold">
+
+            <div class="flapShine"></div>
+
+        </div>
+
 
         <!-- Premium Wax Seal -->
 
@@ -67,114 +110,204 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
 
             <div class="sealCircle">
 
-                <span class="sealText">SA</span>
+                <span class="sealText">
+
+                    SA
+
+                </span>
 
             </div>
 
-            <div class="tapText">
-                Tap to Open
-            </div>
+            <small>Tap To Open</small>
 
         </div>
+
+
+        <!-- Glow -->
+
+        <div class="envelopeGlow"></div>
 
     </div>
 
 </div>
 
-<!-- ======================================
+
+<!-- ==========================================
             INVITATION PAGES
-======================================= -->
+=========================================== -->
 
 <div id="pages">
 
-    <div class="page">
-        <img src="images/page01.jpeg" alt="">
-    </div>
+    <!-- Page 1 -->
 
     <div class="page">
-        <img src="images/page02.jpeg" alt="">
+
+        <img src="images/page21.jpeg"
+             alt="Invitation Page">
+
     </div>
+
+
+    <!-- Page 2 -->
 
     <div class="page">
-        <img src="images/page03.jpeg" alt="">
+
+        <img src="images/page22.jpeg"
+             alt="Invitation Page">
+
     </div>
+
+
+    <!-- Page 3 -->
 
     <div class="page">
-        <img src="images/page04.jpeg" alt="">
+
+        <img src="images/page23.jpeg"
+             alt="Invitation Page">
+
     </div>
 
-    <!-- Countdown -->
+
+    <!-- Page 4 -->
+
+    <div class="page">
+
+        <img src="images/page24.jpeg"
+             alt="Invitation Page">
+
+    </div>
+
+
+    <!-- ==========================================
+                PREMIUM COUNTDOWN
+    =========================================== -->
 
     <div class="countdownPage">
 
-        <h1>Wedding Countdown</h1>
+        <div class="countdownGlow"></div>
+
+        <h1>
+
+            Wedding Countdown
+
+        </h1>
 
         <div class="timer">
 
             <div>
+
                 <span id="days">00</span>
+
                 <p>Days</p>
+
             </div>
 
             <div>
+
                 <span id="hours">00</span>
+
                 <p>Hours</p>
+
             </div>
 
             <div>
+
                 <span id="minutes">00</span>
+
                 <p>Minutes</p>
+
             </div>
 
             <div>
+
                 <span id="seconds">00</span>
+
                 <p>Seconds</p>
+
             </div>
 
         </div>
 
     </div>
 
-    <div class="page">
-        <img src="images/page05.jpeg" alt="">
-    </div>
+
+    <!-- Page 5 -->
 
     <div class="page">
-        <img src="images/page06.jpeg" alt="">
+
+        <img src="images/page25.jpeg"
+             alt="Invitation Page">
+
     </div>
 
-    <div class="page">
-        <img src="images/page07.jpeg" alt="">
-    </div>
+
+    <!-- Page 6 -->
 
     <div class="page">
-        <img src="images/page08.jpeg" alt="">
+
+        <img src="images/page26.jpeg"
+             alt="Invitation Page">
+
+    </div>
+
+
+    <!-- Page 7 -->
+
+    <div class="page">
+
+        <img src="images/page27.jpeg"
+             alt="Invitation Page">
+
+    </div>
+
+
+    <!-- Page 8 -->
+
+    <div class="page">
+
+        <img src="images/page28.jpeg"
+             alt="Invitation Page">
+
     </div>
 
 </div>
 
-<!-- ======================================
-            CONTROLS
-======================================= -->
+
+<!-- ==========================================
+            FLOATING BUTTONS
+=========================================== -->
 
 <div class="controls">
 
-    <button id="prev" title="Previous">
+    <button id="prev"
+            title="Previous">
+
         <i class="fa-solid fa-arrow-left"></i>
+
     </button>
 
-    <button id="next" title="Next">
+    <button id="next"
+            title="Next">
+
         <i class="fa-solid fa-arrow-right"></i>
+
     </button>
 
-    <button id="musicBtn" title="Music">
+    <button id="musicBtn"
+            title="Music">
+
         <i class="fa-solid fa-volume-high"></i>
+
     </button>
 
 </div>
+
+
+<!-- ==========================================
+            JAVASCRIPT
+=========================================== -->
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
