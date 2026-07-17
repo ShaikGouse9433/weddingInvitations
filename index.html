@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,68 +10,70 @@
 
 <link rel="stylesheet" href="style.css">
 
-<link
-rel="stylesheet"
+<link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
 </head>
 
 <body>
 
+<!-- Background Music -->
 <audio id="bgMusic" loop>
-<source src="music/Wsong.mpeg" type="audio/mp3">
+    <source src="music/Wsong.mpeg" type="audio/mp3">
 </audio>
 
-<!-- Sparkles -->
+<!-- Premium Sparkles -->
 <div class="sparkles"></div>
 
-<!-- Flower Animation -->
+<!-- Premium Flowers -->
 <div class="flowers"></div>
 
-<!-- ===========================
-     PREMIUM ENVELOPE
-=========================== -->
+<!-- ======================================
+        PREMIUM LUXURY ENVELOPE
+======================================= -->
 
 <div id="envelopeContainer">
 
     <div id="envelope">
 
         <!-- Back -->
-
         <div class="back"></div>
 
         <!-- Letter -->
 
-       <div id="letter">
+        <div id="letter">
 
-    <img src="images/page1.jpeg" id="invitationPreview">
+            <img src="images/page01.jpeg"
+                 id="invitationPreview"
+                 alt="Wedding Invitation">
 
-</div>
+        </div>
+
         <!-- Left Fold -->
-
         <div class="leftFold"></div>
 
         <!-- Right Fold -->
-
         <div class="rightFold"></div>
 
         <!-- Bottom Fold -->
-
         <div class="bottomFold"></div>
 
-        <!-- Top Flap -->
-
+        <!-- Top Fold -->
         <div class="topFold"></div>
 
-        <!-- Wax Seal -->
+        <!-- Premium Wax Seal -->
 
         <div id="seal">
 
             <div class="sealCircle">
-                SA
+
+                <span class="sealText">SA</span>
+
             </div>
 
-            <small>Tap to Open</small>
+            <div class="tapText">
+                Tap to Open
+            </div>
 
         </div>
 
@@ -78,95 +81,100 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
 
 </div>
 
-<!-- Pages -->
+<!-- ======================================
+            INVITATION PAGES
+======================================= -->
 
 <div id="pages">
 
-<div class="page">
-<img src="images/page1.jpeg">
+    <div class="page">
+        <img src="images/page01.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page02.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page03.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page04.jpeg" alt="">
+    </div>
+
+    <!-- Countdown -->
+
+    <div class="countdownPage">
+
+        <h1>Wedding Countdown</h1>
+
+        <div class="timer">
+
+            <div>
+                <span id="days">00</span>
+                <p>Days</p>
+            </div>
+
+            <div>
+                <span id="hours">00</span>
+                <p>Hours</p>
+            </div>
+
+            <div>
+                <span id="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+
+            <div>
+                <span id="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="page">
+        <img src="images/page05.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page06.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page07.jpeg" alt="">
+    </div>
+
+    <div class="page">
+        <img src="images/page08.jpeg" alt="">
+    </div>
+
 </div>
 
-<div class="page">
-<img src="images/page2.jpeg">
-</div>
-
-<div class="page">
-<img src="images/page3.jpeg">
-</div>
-
-<div class="page">
-<img src="images/page4.jpeg">
-</div>
-
-<!-- Countdown -->
-
-<div class="countdownPage">
-
-<h1>Wedding Countdown</h1>
-
-<div class="timer">
-
-<div>
-<span id="days">00</span>
-<p>Days</p>
-</div>
-
-<div>
-<span id="hours">00</span>
-<p>Hours</p>
-</div>
-
-<div>
-<span id="minutes">00</span>
-<p>Minutes</p>
-</div>
-
-<div>
-<span id="seconds">00</span>
-<p>Seconds</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="page">
-<img src="images/page5.jpeg">
-</div>
-
-<div class="page">
-<img src="images/page6.jpeg">
-</div>
-
-<div class="page">
-<img src="images/page7.jpeg">
-</div>
-
-<div class="page">
-<img src="images/page8.jpeg">
-</div>
-
-</div>
-
-<!-- Controls -->
+<!-- ======================================
+            CONTROLS
+======================================= -->
 
 <div class="controls">
 
-<button id="prev">
-<i class="fa-solid fa-arrow-left"></i>
-</button>
+    <button id="prev" title="Previous">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
 
-<button id="next">
-<i class="fa-solid fa-arrow-right"></i>
-</button>
+    <button id="next" title="Next">
+        <i class="fa-solid fa-arrow-right"></i>
+    </button>
 
-<button id="musicBtn">
-<i class="fa-solid fa-volume-high"></i>
-</button>
+    <button id="musicBtn" title="Music">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>

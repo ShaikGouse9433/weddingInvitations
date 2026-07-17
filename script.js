@@ -1,99 +1,162 @@
-// ===========================
-// Elements
-// ===========================
+// ==========================================
+// PREMIUM WEDDING INVITATION
+// Part 1
+// ==========================================
+
+// ------------------------------
+// ELEMENTS
+// ------------------------------
 
 const envelopeContainer = document.getElementById("envelopeContainer");
 const envelope = document.getElementById("envelope");
 const topFold = document.querySelector(".topFold");
-const letter = document.querySelector(".letter");
+const letter = document.getElementById("letter");
 const seal = document.getElementById("seal");
 const pages = document.getElementById("pages");
-const music = document.getElementById("bgMusic");
 const controls = document.querySelector(".controls");
 
+const music = document.getElementById("bgMusic");
+
+const musicBtn = document.getElementById("musicBtn");
+const nextBtn = document.getElementById("next");
+const prevBtn = document.getElementById("prev");
+
 let opened = false;
+let playing = false;
 
-// ===========================
-// Open Envelope
-// ===========================
+// ------------------------------
+// PREMIUM ENVELOPE OPENING
+// ------------------------------
 
-seal.addEventListener("click", () => {
+seal.addEventListener("click", openInvitation);
+
+function openInvitation(){
 
     if(opened) return;
 
     opened = true;
 
-    // Play music
-    music.play().catch(err=>{
-        console.log(err);
-    });
+    // Play Music
 
-    // Break seal
-    seal.style.transition="0.5s";
-    seal.style.transform="translate(-50%,-50%) scale(0)";
-    seal.style.opacity="0";
+    music.volume = 0.4;
+
+    music.play().then(()=>{
+
+        playing = true;
+
+    }).catch(()=>{});
+
+    // Seal disappears
+
+    seal.style.transition =
+    "all .6s ease";
+
+    seal.style.transform =
+    "translate(-50%,-50%) scale(0) rotate(360deg)";
+
+    seal.style.opacity = "0";
 
     // Open flap
+
     setTimeout(()=>{
-        topFold.style.transform="rotateX(-180deg)";
+
+        topFold.style.transform =
+        "rotateX(-180deg)";
+
     },500);
 
-    // Slide invitation out
-    setTimeout(()=>{
-letter.style.transform =
-"translate(-50%,-260px)";    },1200);
+    // Pull Letter
 
-    // Hide envelope
     setTimeout(()=>{
 
-        envelopeContainer.style.opacity="0";
+        letter.style.transform =
+        "translate(-50%,-260px)";
 
-        setTimeout(()=>{
-            envelopeContainer.style.display="none";
-            pages.style.display="block";
-            controls.style.display="flex";
-            window.scrollTo(0,0);
-        },600);
+        letter.style.boxShadow =
+        "0 30px 60px rgba(0,0,0,.30)";
 
-    },2500);
+    },1200);
 
-});
+    // Fade Envelope
 
+    setTimeout(()=>{
 
-// ===========================
-// Countdown
-// ===========================
+        envelopeContainer.style.transition =
+        "opacity 1s";
 
-const weddingDate = new Date("September 6, 2026 13:00:00").getTime();
+        envelopeContainer.style.opacity = "0";
+
+    },2400);
+
+    // Show Pages
+
+    setTimeout(()=>{
+
+        envelopeContainer.style.display = "none";
+
+        pages.style.display = "block";
+
+        controls.style.display = "flex";
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    },3300);
+
+}
+
+// ------------------------------
+// COUNTDOWN
+// ------------------------------
+
+const weddingDate =
+new Date("September 6, 2026 13:00:00").getTime();
 
 function updateCountdown(){
 
     const now = new Date().getTime();
 
-    const distance = weddingDate-now;
+    const distance = weddingDate - now;
 
-    if(distance<=0){
+    if(distance <= 0){
 
-        document.getElementById("days").innerHTML="00";
-        document.getElementById("hours").innerHTML="00";
-        document.getElementById("minutes").innerHTML="00";
-        document.getElementById("seconds").innerHTML="00";
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
 
         return;
+
     }
 
-    const days=Math.floor(distance/(1000*60*60*24));
+    const days =
+    Math.floor(distance/(1000*60*60*24));
 
-    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const hours =
+    Math.floor((distance%(1000*60*60*24))/(1000*60*60));
 
-    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    const minutes =
+    Math.floor((distance%(1000*60*60))/(1000*60));
 
-    const seconds=Math.floor((distance%(1000*60))/1000);
+    const seconds =
+    Math.floor((distance%(1000*60))/1000);
 
-    document.getElementById("days").innerHTML=days;
-    document.getElementById("hours").innerHTML=hours;
-    document.getElementById("minutes").innerHTML=minutes;
-    document.getElementById("seconds").innerHTML=seconds;
+    document.getElementById("days").textContent =
+    String(days).padStart(2,"0");
+
+    document.getElementById("hours").textContent =
+    String(hours).padStart(2,"0");
+
+    document.getElementById("minutes").textContent =
+    String(minutes).padStart(2,"0");
+
+    document.getElementById("seconds").textContent =
+    String(seconds).padStart(2,"0");
 
 }
 
@@ -101,168 +164,214 @@ setInterval(updateCountdown,1000);
 
 updateCountdown();
 
+// ------------------------------
+// MUSIC BUTTON
+// ------------------------------
 
-// ===========================
-// Music Button
-// ===========================
-
-const musicBtn=document.getElementById("musicBtn");
-
-let playing=true;
-
-musicBtn.onclick=()=>{
+musicBtn.addEventListener("click",()=>{
 
     if(playing){
 
         music.pause();
 
-        musicBtn.innerHTML='<i class="fa-solid fa-volume-xmark"></i>';
+        playing = false;
 
-    }else{
-
-        music.play();
-
-        musicBtn.innerHTML='<i class="fa-solid fa-volume-high"></i>';
+        musicBtn.innerHTML =
+        '<i class="fa-solid fa-volume-xmark"></i>';
 
     }
 
-    playing=!playing;
+    else{
 
-};
+        music.play();
 
+        playing = true;
 
-// ===========================
-// Navigation
-// ===========================
+        musicBtn.innerHTML =
+        '<i class="fa-solid fa-volume-high"></i>';
 
-const pageList=document.querySelectorAll(".page,.countdownPage");
+    }
 
-let current=0;
+});
+
+// ------------------------------
+// PAGE NAVIGATION
+// ------------------------------
+
+const pageList =
+document.querySelectorAll(".page,.countdownPage");
+
+let current = 0;
 
 function showPage(index){
 
-    if(index<0) index=0;
+    if(index < 0)
+        index = 0;
 
-    if(index>=pageList.length) index=pageList.length-1;
+    if(index >= pageList.length)
+        index = pageList.length - 1;
 
-    current=index;
+    current = index;
 
     pageList[current].scrollIntoView({
 
-        behavior:"smooth"
+        behavior:"smooth",
+
+        block:"start"
 
     });
 
 }
 
-document.getElementById("next").onclick=()=>{
+nextBtn.onclick = ()=>{
 
-    showPage(current+1);
+    showPage(current + 1);
 
-}
+};
 
-document.getElementById("prev").onclick=()=>{
+prevBtn.onclick = ()=>{
 
-    showPage(current-1);
+    showPage(current - 1);
 
-}
+};
 
-
-// ===========================
-// Keyboard
-// ===========================
+// ------------------------------
+// KEYBOARD SUPPORT
+// ------------------------------
 
 document.addEventListener("keydown",(e)=>{
 
-    if(e.key==="ArrowRight")
-        showPage(current+1);
-
-    if(e.key==="ArrowLeft")
-        showPage(current-1);
-
-});
-
-
-// ===========================
-// Swipe Support
-// ===========================
-
-let startX=0;
-
-document.addEventListener("touchstart",(e)=>{
-
-    startX=e.touches[0].clientX;
-
-});
-
-document.addEventListener("touchend",(e)=>{
-
-    let endX=e.changedTouches[0].clientX;
-
-    if(startX-endX>70){
+    if(e.key==="ArrowRight"){
 
         showPage(current+1);
 
     }
 
-    if(endX-startX>70){
+    if(e.key==="ArrowLeft"){
 
         showPage(current-1);
 
     }
 
 });
+// ==========================================
+// PREMIUM WEDDING INVITATION
+// Part 2
+// ==========================================
 
+// ------------------------------------------
+// UPDATE CURRENT PAGE WHILE SCROLLING
+// ------------------------------------------
 
-// ===========================
-// Falling Flowers
-// ===========================
+window.addEventListener("scroll", () => {
 
-function createFlower(){
+    pageList.forEach((page, index) => {
 
-    let flower=document.createElement("div");
+        const rect = page.getBoundingClientRect();
 
-    flower.innerHTML="🌸";
+        if (
+            rect.top <= window.innerHeight / 2 &&
+            rect.bottom >= window.innerHeight / 2
+        ) {
 
-    flower.style.position="fixed";
+            current = index;
 
-    flower.style.left=Math.random()*100+"vw";
+        }
 
-    flower.style.top="-50px";
+    });
 
-    flower.style.fontSize=(20+Math.random()*25)+"px";
+});
 
-    flower.style.zIndex="9999";
+// ------------------------------------------
+// MOBILE SWIPE
+// ------------------------------------------
 
-    flower.style.pointerEvents="none";
+let startX = 0;
+
+document.addEventListener("touchstart", (e) => {
+
+    startX = e.touches[0].clientX;
+
+});
+
+document.addEventListener("touchend", (e) => {
+
+    const endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 80) {
+
+        showPage(current + 1);
+
+    }
+
+    if (endX - startX > 80) {
+
+        showPage(current - 1);
+
+    }
+
+});
+
+// ------------------------------------------
+// PREMIUM FALLING ROSES
+// ------------------------------------------
+
+function createFlower() {
+
+    const flowers = ["🌹", "🌸", "🌺", "🌼"];
+
+    const flower = document.createElement("div");
+
+    flower.innerHTML =
+        flowers[Math.floor(Math.random() * flowers.length)];
+
+    flower.style.position = "fixed";
+
+    flower.style.left = Math.random() * 100 + "vw";
+
+    flower.style.top = "-60px";
+
+    flower.style.fontSize =
+        (20 + Math.random() * 18) + "px";
+
+    flower.style.pointerEvents = "none";
+
+    flower.style.zIndex = "9999";
+
+    flower.style.opacity = ".9";
 
     document.body.appendChild(flower);
 
-    let y=-50;
+    let x = parseFloat(flower.style.left);
 
-    let x=parseFloat(flower.style.left);
+    let y = -60;
 
-    let speed=2+Math.random()*3;
+    let rotate = 0;
 
-    let wave=Math.random()*2;
+    const speed = 2 + Math.random() * 3;
 
-    function animate(){
+    const swing = 1 + Math.random() * 2;
 
-        y+=speed;
+    function animate() {
 
-        x+=Math.sin(y/30)*wave;
+        y += speed;
 
-        flower.style.top=y+"px";
+        rotate += 2;
 
-        flower.style.left=x+"px";
+        x += Math.sin(y / 35) * swing;
 
-        flower.style.transform=`rotate(${y}deg)`;
+        flower.style.top = y + "px";
 
-        if(y<window.innerHeight+80){
+        flower.style.left = x + "px";
+
+        flower.style.transform =
+            `rotate(${rotate}deg)`;
+
+        if (y < window.innerHeight + 80) {
 
             requestAnimationFrame(animate);
 
-        }else{
+        } else {
 
             flower.remove();
 
@@ -274,4 +383,186 @@ function createFlower(){
 
 }
 
-setInterval(createFlower,500);
+setInterval(createFlower, 600);
+
+// ------------------------------------------
+// ENVELOPE FLOAT EFFECT
+// ------------------------------------------
+
+setInterval(() => {
+
+    if (!opened) {
+
+        envelope.animate(
+
+            [
+
+                {
+                    transform: "translateY(0px)"
+                },
+
+                {
+                    transform: "translateY(-8px)"
+                },
+
+                {
+                    transform: "translateY(0px)"
+                }
+
+            ],
+
+            {
+
+                duration: 3000,
+
+                easing: "ease-in-out"
+
+            }
+
+        );
+
+    }
+
+}, 3200);
+
+// ------------------------------------------
+// MUSIC VOLUME FADE
+// ------------------------------------------
+
+function fadeMusic(target) {
+
+    const step = target > music.volume ? 0.02 : -0.02;
+
+    const fade = setInterval(() => {
+
+        music.volume += step;
+
+        if (
+
+            (step > 0 && music.volume >= target) ||
+
+            (step < 0 && music.volume <= target)
+
+        ) {
+
+            music.volume = target;
+
+            clearInterval(fade);
+
+        }
+
+    }, 40);
+
+}
+
+// ------------------------------------------
+// MUSIC BUTTON
+// ------------------------------------------
+
+musicBtn.addEventListener("click", () => {
+
+    if (playing) {
+
+        fadeMusic(0);
+
+        setTimeout(() => {
+
+            music.pause();
+
+        }, 900);
+
+    } else {
+
+        music.volume = 0;
+
+        music.play();
+
+        fadeMusic(0.4);
+
+    }
+
+});
+
+// ------------------------------------------
+// PAGE ANIMATION
+// ------------------------------------------
+
+const observer = new IntersectionObserver(
+
+(entries) => {
+
+entries.forEach(entry => {
+
+if(entry.isIntersecting){
+
+entry.target.animate(
+
+[
+
+{
+
+opacity:0,
+
+transform:"translateY(40px)"
+
+},
+
+{
+
+opacity:1,
+
+transform:"translateY(0)"
+
+}
+
+],
+
+{
+
+duration:700,
+
+fill:"forwards"
+
+}
+
+);
+
+}
+
+});
+
+},
+
+{
+
+threshold:0.25
+
+}
+
+);
+
+pageList.forEach(page=>{
+
+observer.observe(page);
+
+});
+
+// ------------------------------------------
+// PRELOAD IMAGES
+// ------------------------------------------
+
+window.addEventListener("load", () => {
+
+document.querySelectorAll("img").forEach(img => {
+
+const image = new Image();
+
+image.src = img.src;
+
+});
+
+});
+
+// ------------------------------------------
+// END OF SCRIPT
+// ------------------------------------------

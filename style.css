@@ -1,8 +1,8 @@
-/* ==========================
-   Google Font
-========================== */
+/* ==========================================
+   GOOGLE FONT
+========================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
     margin:0;
@@ -10,617 +10,1239 @@
     box-sizing:border-box;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    overflow:hidden;
-    background:linear-gradient(135deg,#f9f4ff,#fefaf6);
+html{
+    scroll-behavior:smooth;
 }
 
-/* ==========================
-Luxury Envelope
-========================== */
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at top,#fffdf8,#faf5ef 40%,#f5f0ea 100%);
+
+    color:#333;
+
+}
+
+/* ==========================================
+        PREMIUM BACKGROUND
+========================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 20% 20%,
+    rgba(255,215,0,.08),
+    transparent 30%),
+
+    radial-gradient(circle at 80% 80%,
+    rgba(255,255,255,.30),
+    transparent 35%);
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+/* ==========================================
+      ENVELOPE CONTAINER
+========================================== */
 
 #envelopeContainer{
 
-position:fixed;
+    position:fixed;
 
-inset:0;
+    inset:0;
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-align-items:center;
+    align-items:center;
 
-background:
+    background:
 
-linear-gradient(135deg,#faf5ff,#fffef8);
+    linear-gradient(135deg,#fdf8f1,#fffefb,#f7efe4);
 
-overflow:hidden;
+    overflow:hidden;
+
+    transition:1s;
 
 }
+
+/* ==========================================
+        PREMIUM ENVELOPE
+========================================== */
 
 #envelope{
 
-width:480px;
+    width:min(520px,92vw);
 
-height:320px;
+    aspect-ratio:1.55;
 
-position:relative;
+    position:relative;
 
-perspective:1500px;
+    perspective:2200px;
+
+    filter:
+
+    drop-shadow(0 35px 45px rgba(0,0,0,.25));
 
 }
 
-/* Letter */
+/* ==========================================
+      BACK OF ENVELOPE
+========================================== */
+
+.back{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:14px;
+
+    border:2px solid #e5c76d;
+
+    background:
+
+    linear-gradient(
+    145deg,
+    #fffef8,
+    #fff9ef 45%,
+    #f7ecd8 100%);
+
+    box-shadow:
+
+    inset 0 0 30px rgba(255,255,255,.9),
+
+    inset 0 -8px 20px rgba(0,0,0,.06);
+
+}
+
+/* ==========================================
+          LETTER
+========================================== */
 
 #letter{
 
-position:absolute;
+    position:absolute;
 
-left:50%;
+    left:50%;
 
-top:15px;
+    top:18px;
 
-transform:translateX(-50%);
+    transform:translateX(-50%);
 
-width:88%;
+    width:88%;
 
-height:280px;
+    height:285px;
 
-overflow:hidden;
+    overflow:hidden;
 
-border-radius:10px;
+    border-radius:10px;
 
-z-index:1;
+    background:white;
 
-transition:1.5s;
+    z-index:2;
 
-box-shadow:0 15px 40px rgba(0,0,0,.25);
+    transition:1.7s;
+
+    box-shadow:
+
+    0 18px 45px rgba(0,0,0,.25);
 
 }
 
 #invitationPreview{
 
-width:100%;
+    width:100%;
 
-height:100%;
+    height:100%;
 
-object-fit:cover;
+    object-fit:cover;
 
-display:block;
-
-}
-
-/* Back */
-
-.back{
-
-position:absolute;
-
-width:100%;
-
-height:100%;
-
-background:#fff;
-
-border:2px solid #e6d5ff;
-
-border-radius:10px;
+    display:block;
 
 }
 
-/* Bottom */
-
-.bottomFold{
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-height:55%;
-
-background:
-
-linear-gradient(180deg,#fefefe,#f6ebff);
-
-clip-path:
-
-polygon(0 100%,50% 0,100% 100%);
-
-z-index:5;
-
-}
-
-/* Left */
+/* ==========================================
+        LEFT FOLD
+========================================== */
 
 .leftFold{
 
-position:absolute;
+    position:absolute;
 
-left:0;
+    left:0;
 
-width:50%;
+    width:50%;
 
-height:100%;
+    height:100%;
 
-background:#f3e6ff;
+    background:
 
-clip-path:
+    linear-gradient(
+    90deg,
+    #fff9ef,
+    #efd39a);
 
-polygon(0 0,100% 50%,0 100%);
+    clip-path:polygon(0 0,100% 50%,0 100%);
 
-z-index:6;
+    z-index:6;
 
 }
 
-/* Right */
+/* ==========================================
+        RIGHT FOLD
+========================================== */
 
 .rightFold{
 
-position:absolute;
+    position:absolute;
 
-right:0;
+    right:0;
 
-width:50%;
+    width:50%;
 
-height:100%;
+    height:100%;
 
-background:#edd8ff;
+    background:
 
-clip-path:
+    linear-gradient(
+    -90deg,
+    #fff9ef,
+    #efd39a);
 
-polygon(100% 0,0 50%,100% 100%);
+    clip-path:polygon(100% 0,0 50%,100% 100%);
 
-z-index:6;
+    z-index:6;
 
 }
 
-/* Top Flap */
+/* ==========================================
+        BOTTOM FOLD
+========================================== */
+
+.bottomFold{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:56%;
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #fffdf7,
+    #f0d8a3);
+
+    clip-path:
+
+    polygon(0 100%,50% 0,100% 100%);
+
+    z-index:7;
+
+}
+
+/* ==========================================
+          TOP FLAP
+========================================== */
 
 .topFold{
 
-position:absolute;
+    position:absolute;
 
-top:0;
+    top:0;
 
-width:100%;
+    width:100%;
 
-height:52%;
+    height:54%;
 
-background:
+    clip-path:
 
-linear-gradient(180deg,#efe1ff,#d8b5ff);
+    polygon(0 0,100% 0,50% 100%);
 
-clip-path:
+    background:
 
-polygon(0 0,100% 0,50% 100%);
+    linear-gradient(
+    180deg,
+    #fff8e9,
+    #f1cf8a);
 
-transform-origin:top;
+    transform-origin:top;
 
-transition:1.4s;
+    transition:1.5s;
 
-z-index:9;
+    z-index:9;
 
 }
 
-/* Wax Seal */
+/* ==========================================
+      PREMIUM GOLD WAX SEAL
+========================================== */
 
 #seal{
 
-position:absolute;
+    position:absolute;
 
-left:50%;
+    left:50%;
 
-top:48%;
+    top:49%;
 
-transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
-z-index:15;
+    z-index:20;
 
-text-align:center;
+    cursor:pointer;
 
-cursor:pointer;
+    text-align:center;
 
 }
+
+/* ==========================================
+      SEAL CIRCLE
+========================================== */
 
 .sealCircle{
 
-width:95px;
+    width:105px;
 
-height:95px;
+    height:105px;
 
-border-radius:50%;
+    border-radius:50%;
 
-background:
+    display:flex;
 
-radial-gradient(circle,#ffd700,#b8860b);
+    justify-content:center;
 
-display:flex;
+    align-items:center;
 
-justify-content:center;
+    background:
 
-align-items:center;
+    radial-gradient(circle at 35% 35%,
 
-font-size:34px;
+    #ffe89d 0%,
 
-font-weight:bold;
+    #e0b93d 35%,
 
-color:white;
+    #b8860b 70%,
+
+    #8b6508 100%);
+
+    border:4px solid #fff4c4;
+
+    box-shadow:
+
+    0 10px 28px rgba(0,0,0,.35),
+
+    inset 0 4px 8px rgba(255,255,255,.8),
+
+    inset 0 -6px 10px rgba(0,0,0,.30),
+
+    0 0 35px rgba(255,215,0,.8);
+
+    animation:sealGlow 2.6s ease-in-out infinite;
+
+}
+
+/* ==========================================
+         SA
+========================================== */
+
+.sealText{
+
+    font-family:
+
+    "Times New Roman",
+
+    Georgia,
+
+    serif;
+
+    font-size:44px;
+
+    font-style:italic;
+
+    font-weight:bold;
+
+    color:white;
+
+    letter-spacing:2px;
+
+    text-shadow:
+
+    0 3px 5px rgba(0,0,0,.4);
+
+}
+
+/* ==========================================
+      TAP TEXT
+========================================== */
+
+.tapText{
+
+    margin-top:14px;
+
+    color:#8a5a00;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    animation:blink 2s infinite;
+
+}
+
+/* ==========================================
+      ANIMATIONS
+========================================== */
+
+@keyframes sealGlow{
+
+0%{
+
+transform:scale(1);
 
 box-shadow:
 
-0 0 25px gold;
-
-animation:pulse 2s infinite;
+0 0 20px rgba(255,215,0,.45);
 
 }
 
-#seal small{
+50%{
 
-display:block;
-
-margin-top:12px;
-
-font-size:15px;
-
-color:#7a3db4;
-
-font-weight:bold;
-
-}
-
-/* ==========================
-   Flap
-========================== */
-
-.flap{
-
-position:absolute;
-
-width:100%;
-height:100%;
-
-background:linear-gradient(180deg,#efe3ff,#d8b6ff);
-
-clip-path:polygon(0 0,100% 0,50% 55%);
-
-transform-origin:top;
-
-transition:1.2s;
-
-z-index:5;
-
-border-top-left-radius:12px;
-border-top-right-radius:12px;
-
-}
-
-/* ==========================
-   Gold Seal
-========================== */
-
-.seal{
-
-width:90px;
-height:90px;
-
-border-radius:50%;
-
-background:radial-gradient(circle,#ffd700,#b8860b);
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-font-size:34px;
-font-weight:bold;
-color:white;
+transform:scale(1.08);
 
 box-shadow:
 
-0 0 15px gold,
-0 0 40px rgba(255,215,0,.4);
-
-z-index:10;
-
-transition:.5s;
-
-animation:pulse 2s infinite;
+0 0 45px rgba(255,215,0,.95);
 
 }
 
-.seal:hover{
+100%{
 
-transform:scale(1.1);
+transform:scale(1);
 
-}
+box-shadow:
 
-@keyframes pulse{
-
-0%{transform:scale(1);}
-50%{transform:scale(1.08);}
-100%{transform:scale(1);}
+0 0 20px rgba(255,215,0,.45);
 
 }
 
-h2{
+}
 
-margin-top:20px;
+@keyframes blink{
 
-font-size:30px;
+50%{
 
-color:#7d3cb5;
+opacity:.45;
 
 }
 
-p{
-
-margin-top:10px;
-
-color:#555;
-
 }
 
-/* ==========================
-   Pages
-========================== */
+/* ==========================================
+        INVITATION PAGES
+========================================== */
 
 #pages{
 
-display:none;
+    display:none;
 
-width:100vw;
-height:100vh;
+    width:100vw;
+    height:100vh;
 
-overflow-x:hidden;
-overflow-y:auto;
+    overflow-x:hidden;
+    overflow-y:auto;
 
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 
-background:#faf7ff;
+    background:
+    linear-gradient(180deg,#faf8f4,#f6efe7);
 
-padding:40px;
+    padding:50px 20px 100px;
 
 }
 
 .page{
 
-max-width:800px;
+    max-width:900px;
 
-margin:40px auto;
+    margin:45px auto;
 
-background:white;
+    border-radius:24px;
 
-border-radius:18px;
+    overflow:hidden;
 
-overflow:hidden;
+    background:#ffffff;
 
-box-shadow:0 10px 35px rgba(0,0,0,.18);
+    border:1px solid rgba(212,175,55,.25);
 
-transition:.5s;
+    box-shadow:
+
+    0 18px 45px rgba(0,0,0,.14),
+
+    0 0 25px rgba(212,175,55,.10);
+
+    transition:
+    transform .45s ease,
+    box-shadow .45s ease;
 
 }
 
 .page:hover{
 
-transform:translateY(-8px);
+    transform:translateY(-10px);
+
+    box-shadow:
+
+    0 30px 60px rgba(0,0,0,.18),
+
+    0 0 40px rgba(212,175,55,.20);
 
 }
 
 .page img{
 
-width:100%;
-display:block;
+    width:100%;
+
+    display:block;
 
 }
 
-/* ==========================
-Countdown
-========================== */
+/* ==========================================
+      COUNTDOWN CARD
+========================================== */
 
 .countdownPage{
 
-max-width:800px;
+    max-width:900px;
 
-margin:60px auto;
+    margin:50px auto;
 
-padding:50px;
+    padding:60px 30px;
 
-border-radius:25px;
+    border-radius:28px;
 
-background:white;
+    text-align:center;
 
-box-shadow:0 15px 40px rgba(0,0,0,.2);
+    background:
 
-text-align:center;
+    linear-gradient(
+    145deg,
+    #ffffff,
+    #fffaf2);
+
+    border:1px solid rgba(212,175,55,.35);
+
+    box-shadow:
+
+    0 18px 50px rgba(0,0,0,.15),
+
+    0 0 35px rgba(212,175,55,.15);
 
 }
 
 .countdownPage h1{
 
-font-size:42px;
+    font-size:42px;
 
-color:#7b2cbf;
+    color:#8b6508;
 
-margin-bottom:40px;
+    font-weight:700;
+
+    margin-bottom:45px;
+
+    letter-spacing:1px;
 
 }
 
+/* ==========================================
+        TIMER
+========================================== */
+
 .timer{
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-gap:25px;
+    align-items:center;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
+
+    gap:22px;
 
 }
 
 .timer div{
 
-width:120px;
+    width:130px;
 
-height:120px;
+    height:130px;
 
-border-radius:18px;
+    border-radius:22px;
 
-background:linear-gradient(180deg,#fff,#f4ebff);
+    background:
 
-box-shadow:0 8px 20px rgba(0,0,0,.15);
+    linear-gradient(
+    145deg,
+    #fffdf8,
+    #f8edd5);
 
-display:flex;
+    border:1px solid rgba(212,175,55,.35);
 
-flex-direction:column;
+    display:flex;
 
-justify-content:center;
+    flex-direction:column;
 
-align-items:center;
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.35s;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.12),
+
+    inset 0 2px 5px rgba(255,255,255,.8);
+
+}
+
+.timer div:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+    0 18px 35px rgba(0,0,0,.18),
+
+    0 0 20px rgba(212,175,55,.30);
 
 }
 
 .timer span{
 
-font-size:40px;
+    font-size:44px;
 
-font-weight:bold;
+    font-weight:700;
 
-color:#b8860b;
+    color:#b8860b;
 
 }
 
 .timer p{
 
-margin-top:8px;
+    margin-top:10px;
 
-font-weight:600;
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#555;
+
+    letter-spacing:.5px;
 
 }
 
-/* ==========================
-Controls
-========================== */
+/* ==========================================
+      FLOATING BUTTONS
+========================================== */
 
 .controls{
 
-position:fixed;
+    position:fixed;
 
-bottom:25px;
+    right:25px;
 
-right:25px;
+    bottom:25px;
 
-display:none;
+    display:none;
 
-gap:12px;
+    flex-direction:column;
 
-z-index:100;
+    gap:15px;
+
+    z-index:999;
 
 }
 
 .controls button{
 
-width:58px;
-height:58px;
+    width:60px;
 
-border:none;
+    height:60px;
 
-border-radius:50%;
+    border:none;
 
-background:#7b2cbf;
+    border-radius:50%;
 
-color:white;
+    cursor:pointer;
 
-font-size:20px;
+    color:#ffffff;
 
-cursor:pointer;
+    font-size:22px;
 
-box-shadow:0 8px 20px rgba(0,0,0,.25);
+    background:
 
-transition:.3s;
+    linear-gradient(
+    145deg,
+    #d4af37,
+    #9b7200);
+
+    box-shadow:
+
+    0 12px 28px rgba(0,0,0,.22),
+
+    0 0 20px rgba(212,175,55,.25);
+
+    transition:
+    transform .30s,
+    box-shadow .30s;
 
 }
 
 .controls button:hover{
 
-transform:scale(1.08);
+    transform:scale(1.10);
 
-background:#5a189a;
+    box-shadow:
+
+    0 20px 35px rgba(0,0,0,.28),
+
+    0 0 30px rgba(255,215,0,.55);
 
 }
 
-/* ==========================
-Sparkles
-========================== */
+.controls button:active{
+
+    transform:scale(.95);
+
+}
+
+/* ==========================================
+      PREMIUM SCROLLBAR
+========================================== */
+
+#pages::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+#pages::-webkit-scrollbar-track{
+
+    background:#f3ede4;
+
+}
+
+#pages::-webkit-scrollbar-thumb{
+
+    border-radius:20px;
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #d4af37,
+    #8b6508);
+
+}
+
+#pages::-webkit-scrollbar-thumb:hover{
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #e6c34f,
+    #7a5a05);
+
+}
+
+/* ==========================================
+   PREMIUM GOLD SPARKLES
+========================================== */
 
 .sparkles{
 
-position:fixed;
+    position:fixed;
 
-inset:0;
+    inset:0;
 
-pointer-events:none;
+    pointer-events:none;
 
-background-image:
+    z-index:1;
 
-radial-gradient(#ffd700 1px,transparent 1px);
+    opacity:.28;
 
-background-size:80px 80px;
+    background-image:
 
-opacity:.25;
+    radial-gradient(circle,#ffd700 1px,transparent 1px),
+    radial-gradient(circle,#ffffff 1.5px,transparent 1.5px);
 
-animation:moveSparkle 18s linear infinite;
+    background-size:
+    80px 80px,
+    140px 140px;
 
-}
-
-@keyframes moveSparkle{
-
-from{background-position:0 0;}
-
-to{background-position:300px 300px;}
+    animation:sparkleMove 25s linear infinite;
 
 }
 
-/* ==========================
-Responsive
-========================== */
+@keyframes sparkleMove{
 
-@media(max-width:768px){
+    from{
+        background-position:0 0,0 0;
+    }
+
+    to{
+        background-position:400px 400px,-300px 300px;
+    }
+
+}
+
+/* ==========================================
+        FLOWERS CONTAINER
+========================================== */
+
+.flowers{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:5;
+
+}
+
+/* ==========================================
+        PAGE FADE ANIMATION
+========================================== */
+
+.page,
+.countdownPage{
+
+    animation:fadeUp .9s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+        BUTTON RIPPLE EFFECT
+========================================== */
+
+.controls button{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.controls button::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:0;
+
+    height:0;
+
+    left:50%;
+
+    top:50%;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+
+    transform:translate(-50%,-50%);
+
+    transition:.45s;
+
+}
+
+.controls button:hover::after{
+
+    width:140px;
+
+    height:140px;
+
+}
+
+/* ==========================================
+        LETTER SHADOW
+========================================== */
+
+#letter{
+
+    box-shadow:
+
+    0 25px 45px rgba(0,0,0,.22),
+
+    0 8px 15px rgba(0,0,0,.08);
+
+}
+
+/* ==========================================
+        ENVELOPE SHADOW
+========================================== */
 
 #envelope{
 
-width:90%;
-height:230px;
+    animation:floatEnvelope 4s ease-in-out infinite;
 
 }
 
-.timer div{
+@keyframes floatEnvelope{
 
-width:80px;
-height:80px;
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+        DESKTOP
+========================================== */
+
+@media (min-width:1200px){
+
+    #envelope{
+
+        width:560px;
+
+    }
+
+    .page{
+
+        max-width:950px;
+
+    }
+
+    .countdownPage{
+
+        max-width:950px;
+
+    }
 
 }
 
-.timer span{
+/* ==========================================
+        TABLET
+========================================== */
 
-font-size:26px;
+@media (max-width:992px){
+
+    #envelope{
+
+        width:88vw;
+
+    }
+
+    #letter{
+
+        height:260px;
+
+    }
+
+    .timer{
+
+        gap:18px;
+
+    }
+
+    .timer div{
+
+        width:110px;
+
+        height:110px;
+
+    }
+
+    .timer span{
+
+        font-size:36px;
+
+    }
 
 }
 
-.countdownPage h1{
+/* ==========================================
+        MOBILE
+========================================== */
 
-font-size:30px;
+@media (max-width:768px){
+
+    body{
+
+        overflow:hidden;
+
+    }
+
+    #envelope{
+
+        width:94vw;
+
+        max-width:420px;
+
+    }
+
+    #letter{
+
+        width:88%;
+
+        height:180px;
+
+    }
+
+    .sealCircle{
+
+        width:78px;
+
+        height:78px;
+
+    }
+
+    .sealText{
+
+        font-size:30px;
+
+    }
+
+    .tapText{
+
+        font-size:12px;
+
+    }
+
+    #pages{
+
+        padding:20px 12px 90px;
+
+    }
+
+    .page{
+
+        margin:25px auto;
+
+        border-radius:16px;
+
+    }
+
+    .countdownPage{
+
+        margin:30px auto;
+
+        padding:35px 18px;
+
+        border-radius:18px;
+
+    }
+
+    .countdownPage h1{
+
+        font-size:28px;
+
+        margin-bottom:28px;
+
+    }
+
+    .timer{
+
+        gap:12px;
+
+    }
+
+    .timer div{
+
+        width:78px;
+
+        height:78px;
+
+        border-radius:14px;
+
+    }
+
+    .timer span{
+
+        font-size:24px;
+
+    }
+
+    .timer p{
+
+        font-size:12px;
+
+    }
+
+    .controls{
+
+        right:15px;
+
+        bottom:15px;
+
+        gap:10px;
+
+    }
+
+    .controls button{
+
+        width:50px;
+
+        height:50px;
+
+        font-size:18px;
+
+    }
 
 }
 
-.controls{
+/* ==========================================
+        SMALL MOBILE
+========================================== */
 
-right:10px;
-bottom:10px;
+@media (max-width:480px){
+
+    #letter{
+
+        height:160px;
+
+    }
+
+    .sealCircle{
+
+        width:70px;
+
+        height:70px;
+
+    }
+
+    .sealText{
+
+        font-size:26px;
+
+    }
+
+    .tapText{
+
+        font-size:11px;
+
+    }
+
+    .timer div{
+
+        width:68px;
+
+        height:68px;
+
+    }
+
+    .timer span{
+
+        font-size:20px;
+
+    }
 
 }
+
+/* ==========================================
+        GOLD GLOW
+========================================== */
+
+#envelope::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-25px;
+
+    border-radius:20px;
+
+    background:radial-gradient(circle,
+    rgba(255,215,0,.18),
+    transparent 70%);
+
+    z-index:-1;
+
+    filter:blur(20px);
+
+}
+
+/* ==========================================
+        SMOOTH TRANSITIONS
+========================================== */
+
+*{
+
+    transition:
+
+    background .3s,
+
+    color .3s,
+
+    box-shadow .3s,
+
+    transform .3s;
 
 }
