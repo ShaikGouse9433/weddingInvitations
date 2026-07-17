@@ -1,245 +1,178 @@
-// ===========================================
+// ==========================================================
 // ELEMENTS
-// ===========================================
+// ==========================================================
 
 const envelopeContainer = document.getElementById("envelopeContainer");
 const envelope = document.getElementById("envelope");
 const topFold = document.querySelector(".topFold");
 const letter = document.getElementById("letter");
 const seal = document.getElementById("seal");
+
 const pages = document.getElementById("pages");
-const music = document.getElementById("bgMusic");
 const controls = document.querySelector(".controls");
 
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+// ==========================================================
+// VARIABLES
+// ==========================================================
+
 let opened = false;
+let playing = false;
 
+// Optional Sounds
+const openSound = new Audio("music/open.mp3");
+const pageSound = new Audio("music/pageflip.mp3");
 
-// ===========================================
-// ROSE PETALS
-// ===========================================
+// ==========================================================
+// OPEN INVITATION
+// ==========================================================
 
-const roseFlowers = [
+seal.addEventListener("click", openInvitation);
 
-"🌹",
-"🌺",
-"🌸",
-"💮",
-"🌷"
+function openInvitation(){
 
-];
+    if(opened) return;
 
-function createRose(){
+    opened = true;
 
-    const rose=document.createElement("div");
+    // Play Envelope Opening Sound
 
-    rose.className="rose";
+    openSound.volume = 0.7;
 
-    rose.innerHTML=
+    openSound.play().catch(()=>{});
 
-    roseFlowers[Math.floor(Math.random()*roseFlowers.length)];
+    // Play Background Music
 
-    rose.style.left=Math.random()*100+"vw";
+    music.volume = 0.6;
 
-    rose.style.fontSize=
+    music.play().then(()=>{
 
-    (20+Math.random()*20)+"px";
+        playing = true;
 
-    rose.style.animationDuration=
+        musicBtn.innerHTML =
+        '<i class="fa-solid fa-volume-high"></i>';
 
-    (6+Math.random()*5)+"s";
+        musicBtn.classList.add("playing");
 
-    rose.style.transform=
+    }).catch(()=>{});
 
-    `rotate(${Math.random()*360}deg)`;
+    // Disable Seal
 
-    document.body.appendChild(rose);
+    seal.style.pointerEvents = "none";
 
-    setTimeout(()=>{
+    // Break Animation
 
-        rose.remove();
-
-    },11000);
-
-}
-
-// Continuous premium rose animation
-
-setInterval(createRose,300);
-
-
-// ===========================================
-// GOLD SPARKLE
-// ===========================================
-
-function createSpark(x,y){
-
-    const spark=document.createElement("div");
-
-    spark.className="goldSpark";
-
-    spark.style.left=x+"px";
-
-    spark.style.top=y+"px";
-
-    document.body.appendChild(spark);
-
-    const angle=Math.random()*360;
-
-    const distance=80+Math.random()*120;
-
-    const dx=Math.cos(angle*Math.PI/180)*distance;
-
-    const dy=Math.sin(angle*Math.PI/180)*distance;
-
-    spark.animate([
+    seal.animate([
 
         {
-
-            transform:"translate(0,0) scale(1)",
-
+            transform:"translate(-50%,-50%) scale(1)",
             opacity:1
-
         },
 
         {
+            transform:"translate(-50%,-50%) scale(1.35)",
+            opacity:.5
+        },
 
-            transform:`translate(${dx}px,${dy}px) scale(0)`,
-
+        {
+            transform:"translate(-50%,-50%) scale(0)",
             opacity:0
-
         }
 
     ],{
 
-        duration:1800,
-
-        easing:"ease-out"
+        duration:700,
+        easing:"ease-in-out",
+        fill:"forwards"
 
     });
 
-    setTimeout(()=>{
-
-        spark.remove();
-
-    },1800);
-
-}
-
-
-// ===========================================
-// PREMIUM ENVELOPE OPEN
-// ===========================================
-
-seal.addEventListener("click",()=>{
-
-    if(opened) return;
-
-    opened=true;
-
-    // Music
-
-    music.play().catch(()=>{});
-
-    // Rose explosion
-
-    for(let i=0;i<70;i++){
-
-        setTimeout(()=>{
-
-            createRose();
-
-        },i*25);
-
-    }
-
-    // Gold sparkle explosion
-
-    const rect=seal.getBoundingClientRect();
-
-    const x=rect.left+rect.width/2;
-
-    const y=rect.top+rect.height/2;
-
-    for(let i=0;i<50;i++){
-
-        createSpark(x,y);
-
-    }
-
-    // Remove seal
-
-    seal.style.transition=".7s";
-
-    seal.style.transform=
-
-    "translate(-50%,-50%) scale(0) rotate(180deg)";
-
-    seal.style.opacity="0";
-
-    // Open flap
+    // Open Flap
 
     setTimeout(()=>{
 
-        topFold.style.transform=
+        topFold.classList.add("open");
 
-        "rotateX(-180deg)";
+    },650);
 
-    },500);
-
-    // Pull invitation paper
+    // Pull Letter
 
     setTimeout(()=>{
 
-        letter.style.transform=
+        letter.animate([
 
-        "translate(-50%,-280px)";
+            {
 
-    },1300);
+                transform:"translate(-50%,0)"
 
-    // Fade envelope
+            },
 
-    setTimeout(()=>{
+            {
 
-        envelope.style.transform=
+                transform:"translate(-50%,-100px)"
 
-        "scale(.9)";
+            },
 
-        envelope.style.opacity="0";
+            {
 
-    },2400);
+                transform:"translate(-50%,-280px)"
 
-    // Show pages
+            }
 
-    setTimeout(()=>{
+        ],{
 
-        envelopeContainer.style.opacity="0";
+            duration:1700,
 
-    },2900);
+            easing:"ease-in-out",
 
-    setTimeout(()=>{
-
-        envelopeContainer.style.display="none";
-
-        pages.style.display="block";
-
-        controls.style.display="flex";
-
-        window.scrollTo({
-
-            top:0,
-
-            behavior:"smooth"
+            fill:"forwards"
 
         });
 
-    },3600);
+    },1200);
 
-});
-// ===========================================
-// PREMIUM COUNTDOWN
-// ===========================================
+    // Hide Envelope
 
-const weddingDate = new Date("September 6, 2026 13:00:00").getTime();
+    setTimeout(()=>{
+
+        envelopeContainer.style.opacity = "0";
+
+        envelopeContainer.style.transform = "scale(1.08)";
+
+        setTimeout(()=>{
+
+            envelopeContainer.style.display = "none";
+
+            pages.style.display = "block";
+
+            controls.style.display = "flex";
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"instant"
+
+            });
+
+            startFlowers();
+
+        },800);
+
+    },3000);
+
+}
+// ==========================================================
+// WEDDING COUNTDOWN
+// ==========================================================
+
+const weddingDate =
+new Date("September 6, 2026 13:00:00").getTime();
 
 function updateCountdown(){
 
@@ -249,311 +182,646 @@ function updateCountdown(){
 
     if(distance <= 0){
 
-        document.getElementById("days").innerHTML="00";
-        document.getElementById("hours").innerHTML="00";
-        document.getElementById("minutes").innerHTML="00";
-        document.getElementById("seconds").innerHTML="00";
+        clearInterval(countdownTimer);
+
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        document.querySelector(".countdownPage h1").innerHTML =
+        "💍 Today is the Wedding Day 💜";
 
         return;
+
     }
 
-    const days=Math.floor(distance/(1000*60*60*24));
+    const days =
+    Math.floor(distance / (1000 * 60 * 60 * 24));
 
-    const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    const hours =
+    Math.floor((distance % (1000 * 60 * 60 * 24))
+    / (1000 * 60 * 60));
 
-    const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    const minutes =
+    Math.floor((distance % (1000 * 60 * 60))
+    / (1000 * 60));
 
-    const seconds=Math.floor((distance%(1000*60))/1000);
+    const seconds =
+    Math.floor((distance % (1000 * 60))
+    / 1000);
 
-    document.getElementById("days").innerHTML=String(days).padStart(2,"0");
-    document.getElementById("hours").innerHTML=String(hours).padStart(2,"0");
-    document.getElementById("minutes").innerHTML=String(minutes).padStart(2,"0");
-    document.getElementById("seconds").innerHTML=String(seconds).padStart(2,"0");
+    document.getElementById("days").textContent =
+    String(days).padStart(2,"0");
+
+    document.getElementById("hours").textContent =
+    String(hours).padStart(2,"0");
+
+    document.getElementById("minutes").textContent =
+    String(minutes).padStart(2,"0");
+
+    document.getElementById("seconds").textContent =
+    String(seconds).padStart(2,"0");
 
 }
 
+const countdownTimer =
 setInterval(updateCountdown,1000);
 
 updateCountdown();
 
-
-// ===========================================
+// ==========================================================
 // MUSIC BUTTON
-// ===========================================
+// ==========================================================
 
-const musicBtn=document.getElementById("musicBtn");
-
-let playing=true;
-
-musicBtn.onclick=()=>{
+musicBtn.addEventListener("click",()=>{
 
     if(playing){
 
         music.pause();
 
-        musicBtn.innerHTML='<i class="fa-solid fa-volume-xmark"></i>';
+        musicBtn.innerHTML =
+        '<i class="fa-solid fa-volume-xmark"></i>';
 
-    }else{
+        musicBtn.classList.remove("playing");
 
-        music.play();
+    }
+    else{
 
-        musicBtn.innerHTML='<i class="fa-solid fa-volume-high"></i>';
+        music.play().catch(()=>{});
+
+        musicBtn.innerHTML =
+        '<i class="fa-solid fa-volume-high"></i>';
+
+        musicBtn.classList.add("playing");
 
     }
 
-    playing=!playing;
+    playing = !playing;
 
-};
+});
 
+// ==========================================================
+// PAGE FLIP SOUND
+// ==========================================================
 
-// ===========================================
+function playPageSound(){
+
+    pageSound.currentTime = 0;
+
+    pageSound.volume = 0.4;
+
+    pageSound.play().catch(()=>{});
+
+}
+// ==========================================================
 // PAGE NAVIGATION
-// ===========================================
+// ==========================================================
 
-const pageList=document.querySelectorAll(".page,.countdownPage");
+const pageList =
+document.querySelectorAll(".page, .countdownPage");
 
-let current=0;
+let current = 0;
+
+// ==========================================================
+// SHOW PAGE
+// ==========================================================
 
 function showPage(index){
 
-    if(index<0){
+    if(index < 0){
 
-        index=0;
-
-    }
-
-    if(index>=pageList.length){
-
-        index=pageList.length-1;
+        index = 0;
 
     }
 
-    current=index;
+    if(index >= pageList.length){
+
+        index = pageList.length - 1;
+
+    }
+
+    current = index;
+
+    playPageSound();
 
     pageList[current].scrollIntoView({
 
         behavior:"smooth",
 
-        block:"center"
+        block:"start"
 
     });
 
+    updateButtons();
+
 }
 
-document.getElementById("next").onclick=()=>{
+// ==========================================================
+// UPDATE BUTTONS
+// ==========================================================
 
-    showPage(current+1);
+function updateButtons(){
 
-};
+    prevBtn.disabled = (current === 0);
 
-document.getElementById("prev").onclick=()=>{
+    nextBtn.disabled = (current === pageList.length - 1);
 
-    showPage(current-1);
+}
 
-};
+// Initial State
 
+updateButtons();
 
-// ===========================================
+// ==========================================================
+// NEXT BUTTON
+// ==========================================================
+
+nextBtn.addEventListener("click",()=>{
+
+    showPage(current + 1);
+
+});
+
+// ==========================================================
+// PREVIOUS BUTTON
+// ==========================================================
+
+prevBtn.addEventListener("click",()=>{
+
+    showPage(current - 1);
+
+});
+
+// ==========================================================
 // KEYBOARD SUPPORT
-// ===========================================
+// ==========================================================
 
 document.addEventListener("keydown",(e)=>{
 
-    if(e.key==="ArrowRight"){
+    if(!opened) return;
 
-        showPage(current+1);
+    switch(e.key){
 
-    }
+        case "ArrowRight":
 
-    if(e.key==="ArrowLeft"){
+        case "ArrowDown":
 
-        showPage(current-1);
+            showPage(current + 1);
+
+            break;
+
+        case "ArrowLeft":
+
+        case "ArrowUp":
+
+            showPage(current - 1);
+
+            break;
+
+        case "Home":
+
+            showPage(0);
+
+            break;
+
+        case "End":
+
+            showPage(pageList.length - 1);
+
+            break;
 
     }
 
 });
 
+// ==========================================================
+// SWIPE SUPPORT
+// ==========================================================
 
-// ===========================================
-// MOBILE SWIPE
-// ===========================================
-
-let startX=0;
+let startX = 0;
+let endX = 0;
 
 document.addEventListener("touchstart",(e)=>{
 
-    startX=e.touches[0].clientX;
+    startX = e.touches[0].clientX;
 
-});
+},{passive:true});
 
 document.addEventListener("touchend",(e)=>{
 
-    const endX=e.changedTouches[0].clientX;
+    endX = e.changedTouches[0].clientX;
 
-    if(startX-endX>70){
+    const distance = startX - endX;
 
-        showPage(current+1);
+    if(Math.abs(distance) < 60){
 
-    }
-
-    if(endX-startX>70){
-
-        showPage(current-1);
+        return;
 
     }
 
-});
+    if(distance > 0){
 
+        showPage(current + 1);
 
-// ===========================================
-// PREMIUM ROSE SHOWER
-// ===========================================
+    }
+    else{
 
-function roseShower(){
-
-    for(let i=0;i<15;i++){
-
-        setTimeout(()=>{
-
-            createRose();
-
-        },i*250);
+        showPage(current - 1);
 
     }
 
-}
+},{passive:true});
+// ==========================================================
+// AUTO PAGE DETECTION
+// ==========================================================
 
-setInterval(roseShower,7000);
+const observer = new IntersectionObserver(
 
+(entries)=>{
 
-// ===========================================
-// GOLD SPARKLES IN BACKGROUND
-// ===========================================
+    entries.forEach(entry=>{
 
-function randomSpark(){
+        if(entry.isIntersecting){
 
-    const spark=document.createElement("div");
+            current =
+            [...pageList].indexOf(entry.target);
 
-    spark.className="goldSpark";
-
-    spark.style.left=Math.random()*window.innerWidth+"px";
-
-    spark.style.top=Math.random()*window.innerHeight+"px";
-
-    document.body.appendChild(spark);
-
-    spark.animate([
-
-        {
-
-            opacity:0,
-
-            transform:"scale(.2)"
-
-        },
-
-        {
-
-            opacity:1,
-
-            transform:"scale(1)"
-
-        },
-
-        {
-
-            opacity:0,
-
-            transform:"scale(.2)"
+            updateButtons();
 
         }
 
-    ],{
-
-        duration:2200,
-
-        easing:"ease-in-out"
-
     });
 
-    setTimeout(()=>{
+},
 
-        spark.remove();
+{
 
-    },2200);
-
-}
-
-setInterval(randomSpark,350);
-
-
-// ===========================================
-// FLOATING ENVELOPE BEFORE OPEN
-// ===========================================
-
-if(!opened){
-
-    let angle=0;
-
-    setInterval(()=>{
-
-        if(opened) return;
-
-        angle+=0.02;
-
-        envelope.style.transform=
-
-        `translateY(${Math.sin(angle)*8}px)`;
-
-    },20);
+    threshold:0.60
 
 }
 
+);
 
-// ===========================================
+// Observe Every Page
+
+pageList.forEach(page=>{
+
+    observer.observe(page);
+
+});
+
+// ==========================================================
+// MOUSE WHEEL SUPPORT
+// ==========================================================
+
+let wheelTimer = null;
+
+pages.addEventListener("wheel",()=>{
+
+    clearTimeout(wheelTimer);
+
+    wheelTimer = setTimeout(()=>{
+
+        const pageCenter =
+        window.innerHeight / 2;
+
+        pageList.forEach((page,index)=>{
+
+            const rect =
+            page.getBoundingClientRect();
+
+            if(
+
+                rect.top <= pageCenter &&
+                rect.bottom >= pageCenter
+
+            ){
+
+                current = index;
+
+            }
+
+        });
+
+        updateButtons();
+
+    },150);
+
+},{passive:true});
+
+// ==========================================================
 // WINDOW RESIZE
-// ===========================================
+// ==========================================================
 
 window.addEventListener("resize",()=>{
 
-    pageList[current].scrollIntoView({
+    showPage(current);
 
-        behavior:"instant",
+});
 
-        block:"center"
+// ==========================================================
+// PAGE SCROLL INDICATOR
+// ==========================================================
+
+window.addEventListener("scroll",()=>{
+
+    if(!opened) return;
+
+    const pageCenter =
+    window.innerHeight / 2;
+
+    pageList.forEach((page,index)=>{
+
+        const rect =
+        page.getBoundingClientRect();
+
+        if(
+
+            rect.top <= pageCenter &&
+            rect.bottom >= pageCenter
+
+        ){
+
+            current = index;
+
+        }
+
+    });
+
+    updateButtons();
+
+});
+
+// ==========================================================
+// PRELOAD PAGE IMAGES
+// ==========================================================
+
+window.addEventListener("load",()=>{
+
+    document
+    .querySelectorAll("img")
+    .forEach(img=>{
+
+        const preload =
+        new Image();
+
+        preload.src = img.src;
 
     });
 
 });
 
+// ==========================================================
+// PREVENT IMAGE DRAG
+// ==========================================================
 
-// ===========================================
-// PRELOAD IMAGES
-// ===========================================
+document
+.querySelectorAll("img")
+.forEach(img=>{
 
-const images=[
-
-"images/page00.jpeg",
-"images/page21.jpeg",
-"images/page22.jpeg",
-"images/page23.jpeg",
-"images/page24.jpeg",
-"images/page25.jpeg",
-"images/page26.jpeg",
-"images/page27.jpeg",
-"images/page28.jpeg"
-
-];
-
-images.forEach(src=>{
-
-    const img=new Image();
-
-    img.src=src;
+    img.draggable = false;
 
 });
 
+// ==========================================================
+// PAGE FADE-IN
+// ==========================================================
 
-// ===========================================
-// END
-// ===========================================
+window.addEventListener("load",()=>{
+
+    document.body.style.opacity = "0";
+
+    requestAnimationFrame(()=>{
+
+        document.body.style.transition =
+        "opacity .8s ease";
+
+        document.body.style.opacity = "1";
+
+    });
+
+});
+// ==========================================================
+// PREMIUM FALLING FLOWERS
+// ==========================================================
+
+const flowerSymbols = [
+
+    "🌸",
+    "🌺",
+    "🌷",
+    "🌼",
+    "💮",
+    "🪷"
+
+];
+
+let flowerInterval = null;
+
+// ==========================================================
+// CREATE FLOWER
+// ==========================================================
+
+function createFlower(){
+
+    const flower =
+    document.createElement("div");
+
+    flower.className =
+    "fallingFlower";
+
+    flower.innerHTML =
+
+    flowerSymbols[
+        Math.floor(
+            Math.random()*flowerSymbols.length
+        )
+    ];
+
+    flower.style.position = "fixed";
+
+    flower.style.left =
+    Math.random()*100 + "vw";
+
+    flower.style.top = "-60px";
+
+    flower.style.fontSize =
+    (18 + Math.random()*22) + "px";
+
+    flower.style.pointerEvents = "none";
+
+    flower.style.userSelect = "none";
+
+    flower.style.zIndex = "9999";
+
+    document.body.appendChild(flower);
+
+    let x =
+    parseFloat(flower.style.left);
+
+    let y = -60;
+
+    const speed =
+    1.8 + Math.random()*2.8;
+
+    const drift =
+    0.5 + Math.random()*2.5;
+
+    const rotation =
+    Math.random()*360;
+
+    function animate(){
+
+        y += speed;
+
+        x +=
+        Math.sin(y/35) * drift;
+
+        flower.style.top =
+        y + "px";
+
+        flower.style.left =
+        x + "px";
+
+        flower.style.transform =
+        `rotate(${rotation+y}deg)`;
+
+        if(
+
+            y < window.innerHeight + 80
+
+        ){
+
+            requestAnimationFrame(
+                animate
+            );
+
+        }
+
+        else{
+
+            flower.remove();
+
+        }
+
+    }
+
+    animate();
+
+}
+
+// ==========================================================
+// START FLOWERS
+// ==========================================================
+
+function startFlowers(){
+
+    if(flowerInterval) return;
+
+    flowerInterval =
+    setInterval(
+
+        createFlower,
+
+        450
+
+    );
+
+}
+
+// ==========================================================
+// STOP FLOWERS
+// ==========================================================
+
+function stopFlowers(){
+
+    clearInterval(flowerInterval);
+
+    flowerInterval = null;
+
+}
+
+// ==========================================================
+// AUTO PAUSE MUSIC
+// ==========================================================
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    ()=>{
+
+        if(document.hidden){
+
+            if(!music.paused){
+
+                music.pause();
+
+            }
+
+        }
+
+        else{
+
+            if(playing){
+
+                music.play().catch(()=>{});
+
+            }
+
+        }
+
+    }
+
+);
+
+// ==========================================================
+// DOUBLE CLICK PREVENTION
+// ==========================================================
+
+document.addEventListener(
+
+    "dblclick",
+
+    (e)=>{
+
+        e.preventDefault();
+
+    }
+
+);
+
+// ==========================================================
+// BEFORE UNLOAD
+// ==========================================================
+
+window.addEventListener(
+
+    "beforeunload",
+
+    ()=>{
+
+        stopFlowers();
+
+        clearInterval(
+            countdownTimer
+        );
+
+        observer.disconnect();
+
+    }
+
+);
+
+// ==========================================================
+// READY
+// ==========================================================
+
+console.log(
+
+"%c💜 Premium Royal Purple Wedding Invitation Loaded Successfully 💜",
+
+"color:#6A0DAD;font-size:16px;font-weight:bold;"
+
+);
