@@ -609,7 +609,6 @@ window.addEventListener("load",()=>{
 const flowerSymbols = [
 
     "🌸",
-    "🌹",
     "❤️",
     "🥀"
 
